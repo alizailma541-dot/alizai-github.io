@@ -1,89 +1,136 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Zaskya's Diary 📖</title>
-    <style>
-      .dark-mode {
-  background: linear-gradient(to right, #232526, #414345);
-  color: white;
-}
-.dark-mode h1 {
-  text-shadow: 2px 2px 4px #00ffff;
-}
-.dark-mode button {
-  background-color: #00ffff;
-  color: black;
-}
-  body {
-    background: linear-gradient(to right, #ff9a9e, #fecfef);
-    font-family: 'Comic Sans MS', cursive;
-    text-align: center;
-  }
-  h1 {
-    color: white;
-    text-shadow: 2px 2px 4px #ff1493;
-  }
-  button {
-    background-color: #ff69b4;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #ff1493;
-    box-shadow: 0 0 10px #ff69b4;
-  }
-    </style>
+<head>
+  <title>Diary Zaskya</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ff9a9e, #fecfef);
+      font-family: Arial;
+      text-align: center;
+      color: #333;
+      padding: 20px;
+      transition: 0.3s;
+    }
+    h1 {
+      color: #ff1493;
+      text-shadow: 2px 2px 4px white;
+    }
+    .kotak {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    input {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ff69b4;
+      margin: 5px;
+    }
     
-  </head>
-  <body style="background-color: #f0f8ff; font-family: Arial; padding: 20px;">
-    
-    <h1 style="color: #4169e1;">Zaskya's Diary 📖</h1>
-    <button onclick="gantiMode()" id="tombolMode">🌙 Dark Mode</button>
-    <br><br>
-    <p>Selamat datang di diary online aku 💙</p>
-    
-    <h2 style="color: #1e90ff;">Hari Ini:</h2>
-    <p>Hari ini aku belajar HTML bareng Meta AI</p>
-    <p>Kotak ijo GitHub aku udah 4 nih 😎💚💚💚💚</p>
-    <p>Udah bisa bikin 2 halaman website sekaligus!</p>
-    
-    <h2 style="color: #1e90ff;">Rencana Besok:</h2>
-    <p>1. Belajar CSS biar makin cantik 🌸</p>
-    <p>2. Nambah foto di diary</p>
-    <p>3. Pamer ke temen-temen 😭🔥</p>
-    
-    <p style="margin-top: 40px;"><a href="index.html" style="color: #4169e1;">← Balik ke Menu Utama</a></p>
-    <script>
-  var jam = new Date().getHours();
-  var ucapan;
+    /* DARK MODE CSS */
+    .dark-mode {
+      background: linear-gradient(to right, #232526, #414345);
+      color: white;
+    }
+    .dark-mode h1 {
+      color: #00ffff;
+      text-shadow: 2px 2px 4px #ff1493;
+    }
+    .dark-mode .kotak {
+      background: #333;
+      color: white;
+      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+    }
+    .dark-mode button {
+      background-color: #00ffff;
+      color: black;
+    }
+    .dark-mode input {
+      background: #555;
+      color: white;
+      border: 1px solid #00ffff;
+    }
+  </style>
+</head>
+<body>
+  <h1>✨Diary Zaskya✨</h1>
+  <button onclick="gantiMode()" id="tombolMode">🌙 Dark Mode</button>
   
-  if (jam < 11) {
-    ucapan = "Selamat Pagi, Zaskya! 🌅";
-  } else if (jam < 15) {
-    ucapan = "Selamat Siang, Zaskya! ☀️";
-  } else if (jam < 19) {
-    ucapan = "Selamat Sore, Zaskya! 🌇";
-  } else {
-    ucapan = "Selamat Malam, Zaskya! 🌙";
+  <div class="kotak">
+    <h2>Kalkulator Nilai 📚</h2>
+    <input type="number" id="nilai" placeholder="Masukin nilai 0-100">
+    <button onclick="cekNilai()">Cek Hasil</button>
+    <p id="hasil"></p>
+  </div>
+
+  <div class="kotak">
+    <h2>Game Tebak Angka 🎮</h2>
+    <p>Aku mikirin angka 1-10. Tebak ya!</p>
+    <input type="number" id="tebakan" placeholder="Tebak 1-10">
+    <button onclick="cekTebakan()">Tebak</button>
+    <p id="hasilTebak"></p>
+  </div>
+
+<script>
+  // KODE DARK MODE
+  function gantiMode() {
+    var body = document.body;
+    var tombol = document.getElementById("tombolMode");
+    body.classList.toggle("dark-mode");
+    if (body.classList.contains("dark-mode")) {
+      tombol.innerHTML = "☀️ Light Mode";
+    } else {
+      tombol.innerHTML = "🌙 Dark Mode";
+    }
   }
-  
-  alert(ucapan);
-    </script>
-    <script>
-function gantiMode() {
-  var body = document.body;
-  var tombol = document.getElementById("tombolMode");
-  
-  body.classList.toggle("dark-mode");
-  
-  if (body.classList.contains("dark-mode")) {
-    tombol.innerHTML = "☀️ Light Mode";
-  } else {
-    tombol.innerHTML = "🌙 Dark Mode";
+
+  // KODE KALKULATOR NILAI
+  function cekNilai() {
+    var nilai = document.getElementById("nilai").value;
+    var hasil = document.getElementById("hasil");
+    if (nilai == "") {
+      hasil.innerHTML = "Isi nilainya dulu dong 😭";
+    } else if (nilai >= 90) {
+      hasil.innerHTML = "WOHHH NILAI A! Zaskya jenius 😭🔥";
+    } else if (nilai >= 80) {
+      hasil.innerHTML = "Nilai B! Keren banget 💖";
+    } else if (nilai >= 70) {
+      hasil.innerHTML = "Nilai C! Dikit lagi A semangat 💪";
+    } else {
+      hasil.innerHTML = "Belajar lagi ya, kamu pasti bisa 💪✨";
+    }
   }
-}
+
+  // KODE GAME TEBAK ANGKA
+  var angkaRahasia = Math.floor(Math.random() * 10) + 1;
+  function cekTebakan() {
+    var tebakan = document.getElementById("tebakan").value;
+    var hasilTebak = document.getElementById("hasilTebak");
+    if (tebakan == "") {
+      hasilTebak.innerHTML = "Tebak dulu dong angkanya 😭";
+    } else if (tebakan == angkaRahasia) {
+      hasilTebak.innerHTML = "BENER BANGET! Kamu dukun ya 😭🔥";
+      angkaRahasia = Math.floor(Math.random() * 10) + 1;
+    } else if (tebakan > angkaRahasia) {
+      hasilTebak.innerHTML = "Kegedean! Coba lebih kecil 👇";
+    } else {
+      hasilTebak.innerHTML = "Kekecilan! Coba lebih gede 👆";
+    }
+  }
 </script>
-  </body>
+
+</body>
 </html>
