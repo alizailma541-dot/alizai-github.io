@@ -42,6 +42,21 @@
     <p>3. Pamer ke temen-temen 😭🔥</p>
     
     <p style="margin-top: 40px;"><a href="index.html" style="color: #4169e1;">← Balik ke Menu Utama</a></p>
-    
+    <script>
+  var jam = new Date().getHours();
+  var ucapan;
+  
+  if (jam < 11) {
+    ucapan = "Selamat Pagi, Zaskya! 🌅";
+  } else if (jam < 15) {
+    ucapan = "Selamat Siang, Zaskya! ☀️";
+  } else if (jam < 19) {
+    ucapan = "Selamat Sore, Zaskya! 🌇";
+  } else {
+    ucapan = "Selamat Malam, Zaskya! 🌙";
+  }
+  
+  alert(ucapan);
+    </script>
   </body>
 </html>
