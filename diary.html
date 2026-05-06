@@ -2,6 +2,17 @@
   <head>
     <title>Zaskya's Diary 📖</title>
     <style>
+      .dark-mode {
+  background: linear-gradient(to right, #232526, #414345);
+  color: white;
+}
+.dark-mode h1 {
+  text-shadow: 2px 2px 4px #00ffff;
+}
+.dark-mode button {
+  background-color: #00ffff;
+  color: black;
+}
   body {
     background: linear-gradient(to right, #ff9a9e, #fecfef);
     font-family: 'Comic Sans MS', cursive;
@@ -29,6 +40,8 @@
   <body style="background-color: #f0f8ff; font-family: Arial; padding: 20px;">
     
     <h1 style="color: #4169e1;">Zaskya's Diary 📖</h1>
+    <button onclick="gantiMode()" id="tombolMode">🌙 Dark Mode</button>
+    <br><br>
     <p>Selamat datang di diary online aku 💙</p>
     
     <h2 style="color: #1e90ff;">Hari Ini:</h2>
@@ -58,5 +71,19 @@
   
   alert(ucapan);
     </script>
+    <script>
+function gantiMode() {
+  var body = document.body;
+  var tombol = document.getElementById("tombolMode");
+  
+  body.classList.toggle("dark-mode");
+  
+  if (body.classList.contains("dark-mode")) {
+    tombol.innerHTML = "☀️ Light Mode";
+  } else {
+    tombol.innerHTML = "🌙 Dark Mode";
+  }
+}
+</script>
   </body>
 </html>
