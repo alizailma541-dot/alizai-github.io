@@ -11,10 +11,7 @@
       padding: 20px;
       transition: 0.3s;
     }
-    h1 {
-      color: #ff1493;
-      text-shadow: 2px 2px 4px white;
-    }
+    h1 { color: #ff1493; text-shadow: 2px 2px 4px white; }
     .kotak {
       background: white;
       border-radius: 20px;
@@ -39,42 +36,25 @@
       border: 1px solid #ff69b4;
       margin: 5px;
     }
-    
     .dark-mode {
       background: linear-gradient(to right, #232526, #414345);
       color: white;
     }
-    .dark-mode h1 {
-      color: #00ffff;
-      text-shadow: 2px 2px 4px #ff1493;
-    }
-    .dark-mode .kotak {
-      background: #333;
-      color: white;
-      box-shadow: 0 0 20px rgba(0,255,255,0.3);
-    }
-    .dark-mode button {
-      background-color: #00ffff;
-      color: black;
-    }
-    .dark-mode input {
-      background: #555;
-      color: white;
-      border: 1px solid #00ffff;
-    }
+    .dark-mode h1 { color: #00ffff; text-shadow: 2px 2px 4px #ff1493; }
+    .dark-mode .kotak { background: #333; color: white; box-shadow: 0 0 20px rgba(0,255,255,0.3); }
+    .dark-mode button { background-color: #00ffff; color: black; }
+    .dark-mode input { background: #555; color: white; border: 1px solid #00ffff; }
   </style>
 </head>
 <body>
   <h1>✨Diary Zaskya✨</h1>
   <button onclick="gantiMode()" id="tombolMode">🌙 Dark Mode</button>
-  
   <div class="kotak">
     <h2>Kalkulator Nilai 📚</h2>
     <input type="number" id="nilai" placeholder="Masukin nilai 0-100">
     <button onclick="cekNilai()">Cek Hasil</button>
     <p id="hasil"></p>
   </div>
-
   <div class="kotak">
     <h2>Game Tebak Angka 🎮</h2>
     <p>Aku mikirin angka 1-10. Tebak ya!</p>
@@ -82,7 +62,6 @@
     <button onclick="cekTebakan()">Tebak</button>
     <p id="hasilTebak"></p>
   </div>
-
 <script>
   function gantiMode() {
     var body = document.body;
@@ -94,7 +73,6 @@
       tombol.innerHTML = "🌙 Dark Mode";
     }
   }
-
   function cekNilai() {
     var nilai = document.getElementById("nilai").value;
     var hasil = document.getElementById("hasil");
@@ -110,7 +88,6 @@
       hasil.innerHTML = "Belajar lagi ya, kamu pasti bisa 💪✨";
     }
   }
-
   var angkaRahasia = Math.floor(Math.random() * 10) + 1;
   function cekTebakan() {
     var tebakan = document.getElementById("tebakan").value;
@@ -127,7 +104,5 @@
     }
   }
 </script>
-  
-     <!-- trigger ulang -->
 </body>
 </html>
