@@ -93,10 +93,21 @@ body.dark-mode.kartu:hover {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
+    /* JAM DIGITAL ZASKYA ⏰ */
+#jam-digital {
+  text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+body.dark-mode #jam-digital {
+  color: #9b88ff !important;
+  text-shadow: 0 0 10px rgba(155, 136, 255, 0.5);
+}
   </style>
 </head>
 <body>
   <h1 id="judul-ketik"></h1>
+  <h1 id="judul-ketik"></h1>
+<p id="jam-digital" style="font-size: 24px; margin: 10px 0; color: #667eea; font-weight: bold;"></p>
+<p>Website ini dibuat dengan cinta 💖</p>
   <p class="subtitle">Selamat datang! Pilih mau lihat yang mana:</p>
   
   <div class="container">
@@ -166,6 +177,21 @@ function ketikTeks() {
 window.addEventListener('load', () => {
   setTimeout(ketikTeks, 1000);
 });
+    // JAM REALTIME ZASKYA ⏰🔥
+function updateJam() {
+  let sekarang = new Date();
+  let jam = String(sekarang.getHours()).padStart(2, '0');
+  let menit = String(sekarang.getMinutes()).padStart(2, '0');
+  let detik = String(sekarang.getSeconds()).padStart(2, '0');
+  
+  let waktu = jam + ':' + menit + ':' + detik;
+  document.getElementById('jam-digital').textContent = '⏰ ' + waktu + ' WITA';
+}
+
+// Update tiap 1 detik
+setInterval(updateJam, 1000);
+// Jalanin langsung pas buka
+updateJam();
 </script>
 </body>
 </body>
