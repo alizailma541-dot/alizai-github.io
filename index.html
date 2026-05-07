@@ -84,10 +84,19 @@
 body.dark-mode.kartu:hover {
   box-shadow: 0 20px 40px rgba(255, 158, 196, 0.4);
 }
+    /* KURSOR KEDIP-KEDIP ZASKYA ⌨️ */
+#judul-ketik::after {
+  content: '|';
+  animation: kedip 1s infinite;
+}
+@keyframes kedip {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
   </style>
 </head>
 <body>
-  <h1>👑 Website Zaskya 👑</h1>
+  <h1 id="judul-ketik"></h1>
   <p class="subtitle">Selamat datang! Pilih mau lihat yang mana:</p>
   
   <div class="container">
@@ -139,5 +148,25 @@ body.dark-mode.kartu:hover {
       </a>
     </p>
   </footer>
+  <script>
+// EFEK KETIK ZASKYA ⌨️🔥
+let teksJudul = "👑 Website Zaskya 👑";
+let i = 0;
+let elemenJudul = document.getElementById('judul-ketik');
+
+function ketikTeks() {
+  if (i < teksJudul.length) {
+    elemenJudul.innerHTML += teksJudul.charAt(i);
+    i++;
+    setTimeout(ketikTeks, 100);
+  }
+}
+
+// Mulai ketik pas halaman dibuka
+window.addEventListener('load', () => {
+  setTimeout(ketikTeks, 1000);
+});
+</script>
+</body>
 </body>
 </html>
