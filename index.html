@@ -1,12 +1,89 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Website Zaskya</title>
-  </head>
-  <body>
-    <h1>Selamat Datang di Website Zaskya</h1>
-    <p>Pilih mau liat yang mana:</p>
+<head>
+  <title>Website Zaskya</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      font-family: Arial;
+      text-align: center;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      color: white;
+      text-shadow: 2px 2px 4px #764ba2;
+      font-size: 35px;
+    }
+    .subtitle {
+      color: white;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .kartu {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+    .kartu:hover {
+      transform: translateY(-5px);
+    }
+    .kartu h2 {
+      color: #667eea;
+      margin-top: 0;
+    }
+    a.tombol {
+      display: inline-block;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    a.tombol:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <h1>👑 Website Zaskya 👑</h1>
+  <p class="subtitle">Selamat datang! Pilih mau lihat yang mana:</p>
+  
+  <div class="container">
     
-    <p><a href="diary.html">📖 Zaskya's Diary</a></p>
-    <p><a href="cantik.html">🌸 Web Cantik Aku</a></p>
-  </body>
+    <div class="kartu">
+      <h2>📔 Diary + Game</h2>
+      <p>Web diary interaktif dengan Dark Mode, kalkulator nilai, dan game tebak angka!</p>
+      <a href="diary.html" class="tombol">Buka Diary</a>
+    </div>
+    
+    <div class="kartu">
+      <h2>📝 To-Do List App</h2>
+      <p>App buat catat tugas. Bisa nambah, coret kalo selesai, dan hapus tugas!</p>
+      <a href="todo.html" class="tombol">Coba App</a>
+    </div>
+    
+    <div class="kartu">
+      <h2>💼 Portofolio</h2>
+      <p>Kenalan lebih jauh sama aku! Skill, kontak, dan perjalanan belajarku.</p>
+      <a href="portofolio.html" class="tombol">Lihat Profil</a>
+    </div>
+    
+    <div class="kartu">
+      <h2>✨ Web Cantik Aku</h2>
+      <p>Project web pertamaku yang aesthetic banget!</p>
+      <a href="cantik.html" class="tombol">Lihat Web</a>
+    </div>
+    
+  </div>
+</body>
 </html>
