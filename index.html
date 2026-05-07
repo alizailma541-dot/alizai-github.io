@@ -52,6 +52,26 @@
     a.tombol:hover {
       opacity: 0.9;
     }
+    /* ANIMASI KARTU MASUK ZASKYA 🔥 */
+.kartu {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: muncul 0.6s ease-out forwards;
+}
+
+.kartu:nth-child(1) { animation-delay: 0.1s; }
+.kartu:nth-child(2) { animation-delay: 0.2s; }
+.kartu:nth-child(3) { animation-delay: 0.3s; }
+.kartu:nth-child(4) { animation-delay: 0.4s; }
+.kartu:nth-child(5) { animation-delay: 0.5s; }
+.kartu:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes muncul {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
   </style>
 </head>
 <body>
