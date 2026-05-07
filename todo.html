@@ -1,118 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>To-Do List Zaskya</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List Zaskya 💖</title>
   <style>
     body {
-      background: linear-gradient(to right, #c471f5, #fa71cd);
-      font-family: Arial;
-      text-align: center;
-      color: #333;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      margin: 0;
       padding: 20px;
-      transition: 0.3s;
+      min-height: 100vh;
     }
-    h1 { color: white; text-shadow: 2px 2px 4px #c471f5; }
-    .kotak {
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
-      margin: 20px auto;
+   .container {
       max-width: 500px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #ff6b9d;
+      margin-bottom: 20px;
+    }
+   .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
     }
     #inputTugas {
+      flex: 1;
       padding: 12px;
+      border: 2px solid #ffb3d1;
       border-radius: 10px;
-      border: 2px solid #c471f5;
-      width: 60%;
       font-size: 16px;
     }
-    button {
-      background: #c471f5;
+   .btn-tambah {
+      padding: 12px 20px;
+      background: #ff6b9d;
       color: white;
       border: none;
-      padding: 12px 18px;
       border-radius: 10px;
       cursor: pointer;
-      margin-left: 5px;
-      font-size: 16px;
+      font-weight: bold;
     }
-    button:hover { background: #a24bcf; }
+   .btn-tambah:hover {
+      background: #ff4d88;
+    }
     ul {
       list-style: none;
       padding: 0;
-      margin-top: 20px;
     }
     li {
-      background: #f3e5f5;
-      margin: 10px 0;
+      background: #fff0f5;
       padding: 15px;
+      margin-bottom: 10px;
       border-radius: 10px;
-      text-align: left;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 16px;
+      transition: 0.3s;
     }
-    .hapus {
-      background: #ff4757;
-      padding: 8px 12px;
-      font-size: 14px;
-    }
-    .hapus:hover { background: #e84118; }
-    .selesai {
+    li.selesai {
+      background: #d4edda;
       text-decoration: line-through;
       opacity: 0.6;
-      background: #d4edda;
+    }
+   .teks-tugas {
+      flex: 1;
+      cursor: pointer;
+    }
+   .btn-hapus {
+      background: #ff4757;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+   .btn-hapus:hover {
+      background: #e84118;
+    }
+   .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #ff6b9d;
+      text-decoration: none;
+      font-weight: bold;
+    }
+   .info {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <h1>📝 To-Do List Zaskya 📝</h1>
-  
-  <div class="kotak">
-    <h2>Tambah Tugas Baru</h2>
-    <input type="text" id="inputTugas" placeholder="Contoh: Kerjain PR MTK 😭">
-    <button onclick="tambahTugas()">Tambah</button>
-    
-    <ul id="listTugas">
-      <!-- Tugas bakal muncul disini -->
-    </ul>
+  <div class="container">
+    <h1>📝 To-Do List Zaskya</h1>
+
+    <div class="input-area">
+      <input type="text" id="inputTugas" placeholder="Tulis tugas baru...">
+      <button class="btn-tambah" onclick="tambahTugas()">Tambah</button>
+    </div>
+
+    <ul id="daftarTugas"></ul>
+
+    <p class="info">💾 Data otomatis kesimpen! Refresh pun nggak ilang ✨</p>
+    <a href="index.html" class="back-home">← Balik ke Home</a>
   </div>
 
-<script>
-  function tambahTugas() {
-    var input = document.getElementById("inputTugas");
-    var tugasBaru = input.value;
-    
-    if (tugasBaru == "") {
-      alert("Isi dulu tugasnya dong Zaskya 😭");
-    } else {
-      var list = document.getElementById("listTugas");
-      
-      // Bikin elemen li baru
-      var li = document.createElement("li");
-      
-      // Isi text + tombol hapus
-      li.innerHTML = tugasBaru + ' <button class="hapus" onclick="hapusTugas(this)">Hapus</button>';
-      
-      // Kalo di-klik = coret tugasnya
-      li.onclick = function() {
-        li.classList.toggle("selesai");
-      }
-      
-      // Tempel ke list
-      list.appendChild(li);
-      
-      // Kosongin input
-      input.value = "";
+  <script>
+    let daftarTugas = document.getElementById('daftarTugas');
+    let inputTugas = document.getElementById('inputTugas');
+
+    // 1. AMBIL DATA DARI LOCALSTORAGE PAS BUKA WEB
+    let tugas = JSON.parse(localStorage.getItem('tugasZaskya')) || [];
+    tampilkanTugas();
+
+    // 2. ENTER JUGA BISA NAMBAH
+    inputTugas.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') tambahTugas();
+    });
+
+    function tambahTugas() {
+      if (inputTugas.value.trim() === '') return;
+
+      tugas.push({
+        teks: inputTugas.value,
+        selesai: false
+      });
+
+      inputTugas.value = '';
+      simpanDanTampilkan();
     }
-  }
-  
-  function hapusTugas(tombol) {
-    var li = tombol.parentElement;
-    li.remove();
-  }
-</script>
+
+    function toggleSelesai(index) {
+      tugas[index].selesai =!tugas[index].selesai;
+      simpanDanTampilkan();
+    }
+
+    function hapusTugas(index) {
+      tugas.splice(index, 1);
+      simpanDanTampilkan();
+    }
+
+    // 3. SIMPAN KE LOCALSTORAGE SETIAP ADA PERUBAHAN
+    function simpanDanTampilkan() {
+      localStorage.setItem('tugasZaskya', JSON.stringify(tugas));
+      tampilkanTugas();
+    }
+
+    function tampilkanTugas() {
+      daftarTugas.innerHTML = '';
+      tugas.forEach((item, index) => {
+        let li = document.createElement('li');
+        if (item.selesai) li.classList.add('selesai');
+
+        li.innerHTML = `
+          <span class="teks-tugas" onclick="toggleSelesai(${index})">
+            ${item.selesai? '✅' : '⬜'} ${item.teks}
+          </span>
+          <button class="btn-hapus" onclick="hapusTugas(${index})">Hapus</button>
+        `;
+        daftarTugas.appendChild(li);
+      });
+    }
+  </script>
 </body>
 </html>
