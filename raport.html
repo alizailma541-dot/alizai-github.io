@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raport Skill Zaskya 📊</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+  .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+   .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+   .skill-item {
+      margin-bottom: 25px;
+    }
+   .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+   .skill-nama {
+      font-weight: bold;
+      color: #333;
+    }
+   .skill-persen {
+      color: #667eea;
+      font-weight: bold;
+    }
+   .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+   .progress-isi {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 10px;
+      width: 0;
+      animation: isiProgress 2s ease-out forwards;
+    }
+    @keyframes isiProgress {
+      to { width: var(--persen); }
+    }
+   .tanggal {
+      font-size: 12px;
+      color: #999;
+      margin-top: 5px;
+    }
+   .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 40px 0;
+    }
+   .stat-box {
+      background: #f8f9ff;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+   .stat-angka {
+      font-size: 32px;
+      font-weight: bold;
+      color: #667eea;
+    }
+   .stat-label {
+      color: #666;
+      font-size: 14px;
+    }
+   .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Raport Skill Zaskya</h1>
+    <p class="subtitle">Progress belajar ngoding dari 0 sampe Jago! 🔥</p>
+
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-angka">7</div>
+        <div class="stat-label">Skill Dikuasai</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-angka">5</div>
+        <div class="stat-label">Website Live</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-angka">1</div>
+        <div class="stat-label">Minggu Belajar</div>
+      </div>
+    </div>
+
+    <!-- SKILL 1 -->
+    <div class="skill-item">
+      <div class="skill-header">
+        <span class="skill-nama">💖 HTML</span>
+        <span class="skill-persen">100%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-isi" style="--persen: 100%"></div>
+      </div>
+      <p class="tanggal">Jago sejak: 2 Mei 2026</p>
+    </div>
+
+    <!-- SKILL 2 -->
+    <div class="skill-item">
+      <div class="skill-header">
+        <span class="skill-nama">🎨 CSS</span>
+        <span class="skill-persen">100%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-isi" style="--persen: 100%"></div>
+      </div>
+      <p class="tanggal">Jago sejak: 4 Mei 2026</p>
+    </div>
+
+    <!-- SKILL 3 -->
+    <div class="skill-item">
+      <div class="skill-header">
+        <span class="skill-nama">⚡ JavaScript</span>
+        <span class="skill-persen">85%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-isi" style="--persen: 85%"></div>
+      </div>
+      <p class="tanggal">Jago sejak: 6 Mei 2026</p>
+    </div>
+
+    <!-- SKILL 4 -->
+    <div class="skill-item">
+      <div class="skill-header">
+        <span class="skill-nama">💾 LocalStorage</span>
+        <span class="skill-persen">90%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-isi" style="--persen: 90%"></div>
+      </div>
+      <p class="tanggal">Jago sejak: 6 Mei 2026</p>
+    </div>
+
+    <!-- SKILL 5 -->
+    <div class="skill-item">
+      <div class="skill-header">
+        <span class="skill-nama">✨ CSS Animation</span>
+        <span class="skill-persen">95%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-isi" style="--persen: 95%"></div>
+      </div>
+      <p class="tanggal">Jago sejak: 6 Mei 2026</p>
+    </div>
+
+    <!-- SKILL 6 -->
+    <div class="skill-item">
+      <div class="skill-header">
+        <span class="skill-nama">🐙 GitHub</span>
+        <span class="skill-persen">80%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-isi" style="--persen: 80%"></div>
+      </div>
+      <p class="tanggal">Jago sejak: 1 Mei 2026</p>
+    </div>
+
+    <!-- SKILL 7 -->
+    <div class="skill-item">
+      <div class="skill-header">
+        <span class="skill-nama">📱 Responsive Design</span>
+        <span class="skill-persen">75%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-isi" style="--persen: 75%"></div>
+      </div>
+      <p class="tanggal">Lagi dipelajari: Mei 2026</p>
+    </div>
+
+    <a href="index.html" class="back-home">← Balik ke Home</a>
+  </div>
+</body>
+</html>
