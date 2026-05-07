@@ -11,21 +11,52 @@
       margin: 0;
       padding: 20px;
       min-height: 100vh;
+      transition: 0.3s;
     }
-   .container {
+    body.dark-mode {
+      background: linear-gradient(135deg, #232526 0%, #414345 100%);
+    }
+  .container {
       max-width: 500px;
       margin: 0 auto;
       background: white;
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    body.dark-mode.container {
+      background: #2c3e50;
+      color: #ecf0f1;
     }
     h1 {
       text-align: center;
       color: #ff6b9d;
       margin-bottom: 20px;
     }
-   .input-area {
+    body.dark-mode h1 {
+      color: #ff9ec4;
+    }
+  .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  .toggle-dark {
+      padding: 8px 15px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    body.dark-mode.toggle-dark {
+      background: #f1c40f;
+      color: #333;
+    }
+  .input-area {
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
@@ -37,7 +68,12 @@
       border-radius: 10px;
       font-size: 16px;
     }
-   .btn-tambah {
+    body.dark-mode #inputTugas {
+      background: #34495e;
+      border-color: #ff9ec4;
+      color: white;
+    }
+  .btn-tambah {
       padding: 12px 20px;
       background: #ff6b9d;
       color: white;
@@ -46,7 +82,7 @@
       cursor: pointer;
       font-weight: bold;
     }
-   .btn-tambah:hover {
+  .btn-tambah:hover {
       background: #ff4d88;
     }
     ul {
@@ -63,16 +99,22 @@
       align-items: center;
       transition: 0.3s;
     }
+    body.dark-mode li {
+      background: #34495e;
+    }
     li.selesai {
       background: #d4edda;
       text-decoration: line-through;
       opacity: 0.6;
     }
-   .teks-tugas {
+    body.dark-mode li.selesai {
+      background: #27ae60;
+    }
+  .teks-tugas {
       flex: 1;
       cursor: pointer;
     }
-   .btn-hapus {
+  .btn-hapus {
       background: #ff4757;
       color: white;
       border: none;
@@ -80,10 +122,10 @@
       border-radius: 8px;
       cursor: pointer;
     }
-   .btn-hapus:hover {
+  .btn-hapus:hover {
       background: #e84118;
     }
-   .back-home {
+  .back-home {
       display: block;
       text-align: center;
       margin-top: 20px;
@@ -91,17 +133,26 @@
       text-decoration: none;
       font-weight: bold;
     }
-   .info {
+    body.dark-mode.back-home {
+      color: #ff9ec4;
+    }
+  .info {
       text-align: center;
       color: #888;
       font-size: 14px;
       margin-top: 15px;
     }
+    body.dark-mode.info {
+      color: #bdc3c7;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>📝 To-Do List Zaskya</h1>
+    <div class="header-bar">
+      <h1>📝 To-Do List Zaskya</h1>
+      <button class="toggle-dark" onclick="toggleDarkMode()">🌙 Dark</button>
+    </div>
 
     <div class="input-area">
       <input type="text" id="inputTugas" placeholder="Tulis tugas baru...">
@@ -110,7 +161,7 @@
 
     <ul id="daftarTugas"></ul>
 
-    <p class="info">💾 Data otomatis kesimpen! Refresh pun nggak ilang ✨</p>
+    <p class="info">💾 Data + Tema otomatis kesimpen! ✨</p>
     <a href="index.html" class="back-home">← Balik ke Home</a>
   </div>
 
@@ -118,23 +169,35 @@
     let daftarTugas = document.getElementById('daftarTugas');
     let inputTugas = document.getElementById('inputTugas');
 
-    // 1. AMBIL DATA DARI LOCALSTORAGE PAS BUKA WEB
+    // LOAD TEMA DARI LOCALSTORAGE
+    if (localStorage.getItem('temaZaskya') === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.querySelector('.toggle-dark').textContent = '☀️ Light';
+    }
+
+    // LOAD TUGAS DARI LOCALSTORAGE
     let tugas = JSON.parse(localStorage.getItem('tugasZaskya')) || [];
     tampilkanTugas();
 
-    // 2. ENTER JUGA BISA NAMBAH
     inputTugas.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') tambahTugas();
     });
 
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      let btn = document.querySelector('.toggle-dark');
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('temaZaskya', 'dark');
+        btn.textContent = '☀️ Light';
+      } else {
+        localStorage.setItem('temaZaskya', 'light');
+        btn.textContent = '🌙 Dark';
+      }
+    }
+
     function tambahTugas() {
       if (inputTugas.value.trim() === '') return;
-
-      tugas.push({
-        teks: inputTugas.value,
-        selesai: false
-      });
-
+      tugas.push({ teks: inputTugas.value, selesai: false });
       inputTugas.value = '';
       simpanDanTampilkan();
     }
@@ -149,7 +212,6 @@
       simpanDanTampilkan();
     }
 
-    // 3. SIMPAN KE LOCALSTORAGE SETIAP ADA PERUBAHAN
     function simpanDanTampilkan() {
       localStorage.setItem('tugasZaskya', JSON.stringify(tugas));
       tampilkanTugas();
@@ -160,7 +222,6 @@
       tugas.forEach((item, index) => {
         let li = document.createElement('li');
         if (item.selesai) li.classList.add('selesai');
-
         li.innerHTML = `
           <span class="teks-tugas" onclick="toggleSelesai(${index})">
             ${item.selesai? '✅' : '⬜'} ${item.teks}
