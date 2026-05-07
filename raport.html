@@ -11,6 +11,10 @@
       margin: 0;
       padding: 20px;
       min-height: 100vh;
+      transition: 0.3s;
+    }
+    body.dark-mode {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     }
   .container {
       max-width: 700px;
@@ -19,16 +23,45 @@
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    body.dark-mode.container {
+      background: #2c3e50;
+      color: #ecf0f1;
     }
     h1 {
       text-align: center;
       color: #667eea;
       margin-bottom: 10px;
     }
+    body.dark-mode h1 {
+      color: #9b88ff;
+    }
    .subtitle {
       text-align: center;
       color: #666;
       margin-bottom: 40px;
+    }
+    body.dark-mode.subtitle {
+      color: #bdc3c7;
+    }
+   .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+   .toggle-dark {
+      padding: 8px 15px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    body.dark-mode.toggle-dark {
+      background: #f1c40f;
+      color: #333;
     }
    .skill-item {
       margin-bottom: 25px;
@@ -42,9 +75,15 @@
       font-weight: bold;
       color: #333;
     }
+    body.dark-mode.skill-nama {
+      color: #ecf0f1;
+    }
    .skill-persen {
       color: #667eea;
       font-weight: bold;
+    }
+    body.dark-mode.skill-persen {
+      color: #9b88ff;
     }
    .progress-bar {
       width: 100%;
@@ -52,6 +91,9 @@
       background: #f0f0f0;
       border-radius: 10px;
       overflow: hidden;
+    }
+    body.dark-mode.progress-bar {
+      background: #34495e;
     }
    .progress-isi {
       height: 100%;
@@ -68,6 +110,9 @@
       color: #999;
       margin-top: 5px;
     }
+    body.dark-mode.tanggal {
+      color: #7f8c8d;
+    }
    .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -80,14 +125,23 @@
       border-radius: 15px;
       text-align: center;
     }
+    body.dark-mode.stat-box {
+      background: #34495e;
+    }
    .stat-angka {
       font-size: 32px;
       font-weight: bold;
       color: #667eea;
     }
+    body.dark-mode.stat-angka {
+      color: #9b88ff;
+    }
    .stat-label {
       color: #666;
       font-size: 14px;
+    }
+    body.dark-mode.stat-label {
+      color: #bdc3c7;
     }
    .back-home {
       display: block;
@@ -97,29 +151,34 @@
       text-decoration: none;
       font-weight: bold;
     }
+    body.dark-mode.back-home {
+      color: #9b88ff;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>📊 Raport Skill Zaskya</h1>
+    <div class="header-bar">
+      <h1>📊 Raport Skill Zaskya</h1>
+      <button class="toggle-dark" onclick="toggleDarkMode()">🌙 Dark</button>
+    </div>
     <p class="subtitle">Progress belajar ngoding dari 0 sampe Jago! 🔥</p>
 
     <div class="stats">
+      <div class="stat-box">
+        <div class="stat-angka" id="totalKunjungan">0</div>
+        <div class="stat-label">Total Buka</div>
+      </div>
       <div class="stat-box">
         <div class="stat-angka">7</div>
         <div class="stat-label">Skill Dikuasai</div>
       </div>
       <div class="stat-box">
-        <div class="stat-angka">5</div>
-        <div class="stat-label">Website Live</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-angka">1</div>
-        <div class="stat-label">Minggu Belajar</div>
+        <div class="stat-angka">6</div>
+        <div class="stat-label">Halaman Web</div>
       </div>
     </div>
 
-    <!-- SKILL 1 -->
     <div class="skill-item">
       <div class="skill-header">
         <span class="skill-nama">💖 HTML</span>
@@ -131,7 +190,6 @@
       <p class="tanggal">Jago sejak: 2 Mei 2026</p>
     </div>
 
-    <!-- SKILL 2 -->
     <div class="skill-item">
       <div class="skill-header">
         <span class="skill-nama">🎨 CSS</span>
@@ -143,19 +201,17 @@
       <p class="tanggal">Jago sejak: 4 Mei 2026</p>
     </div>
 
-    <!-- SKILL 3 -->
     <div class="skill-item">
       <div class="skill-header">
         <span class="skill-nama">⚡ JavaScript</span>
-        <span class="skill-persen">85%</span>
+        <span class="skill-persen" id="js-persen">85%</span>
       </div>
       <div class="progress-bar">
-        <div class="progress-isi" style="--persen: 85%"></div>
+        <div class="progress-isi" id="js-bar" style="--persen: 85%"></div>
       </div>
       <p class="tanggal">Jago sejak: 6 Mei 2026</p>
     </div>
 
-    <!-- SKILL 4 -->
     <div class="skill-item">
       <div class="skill-header">
         <span class="skill-nama">💾 LocalStorage</span>
@@ -167,7 +223,6 @@
       <p class="tanggal">Jago sejak: 6 Mei 2026</p>
     </div>
 
-    <!-- SKILL 5 -->
     <div class="skill-item">
       <div class="skill-header">
         <span class="skill-nama">✨ CSS Animation</span>
@@ -179,7 +234,6 @@
       <p class="tanggal">Jago sejak: 6 Mei 2026</p>
     </div>
 
-    <!-- SKILL 6 -->
     <div class="skill-item">
       <div class="skill-header">
         <span class="skill-nama">🐙 GitHub</span>
@@ -191,19 +245,60 @@
       <p class="tanggal">Jago sejak: 1 Mei 2026</p>
     </div>
 
-    <!-- SKILL 7 -->
     <div class="skill-item">
       <div class="skill-header">
         <span class="skill-nama">📱 Responsive Design</span>
-        <span class="skill-persen">75%</span>
+        <span class="skill-persen" id="responsive-persen">75%</span>
       </div>
       <div class="progress-bar">
-        <div class="progress-isi" style="--persen: 75%"></div>
+        <div class="progress-isi" id="responsive-bar" style="--persen: 75%"></div>
       </div>
       <p class="tanggal">Lagi dipelajari: Mei 2026</p>
     </div>
 
     <a href="index.html" class="back-home">← Balik ke Home</a>
   </div>
+
+  <script>
+    // LOAD TEMA
+    if (localStorage.getItem('temaZaskya') === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.querySelector('.toggle-dark').textContent = '☀️ Light';
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      let btn = document.querySelector('.toggle-dark');
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('temaZaskya', 'dark');
+        btn.textContent = '☀️ Light';
+      } else {
+        localStorage.setItem('temaZaskya', 'light');
+        btn.textContent = '🌙 Dark';
+      }
+    }
+
+    // RAPORT OTOMATIS ZASKYA 🔥
+    let dataSkill = JSON.parse(localStorage.getItem('skillZaskya')) || {
+      js: 85,
+      responsive: 75,
+      kunjungan: 0
+    };
+
+    // TIAP BUKA RAPORT = SKILL NAIK 1% + KUNJUNGAN +1
+    dataSkill.js = Math.min(dataSkill.js + 1, 100);
+    dataSkill.responsive = Math.min(dataSkill.responsive + 1, 100);
+    dataSkill.kunjungan += 1;
+
+    // SIMPAN
+    localStorage.setItem('skillZaskya', JSON.stringify(dataSkill));
+
+    // UPDATE TAMPILAN
+    document.getElementById('js-persen').textContent = dataSkill.js + '%';
+    document.getElementById('js-bar').style.setProperty('--persen', dataSkill.js + '%');
+    document.getElementById('responsive-persen').textContent = dataSkill.responsive + '%';
+    document.getElementById('responsive-bar').style.setProperty('--persen', dataSkill.responsive + '%');
+    document.getElementById('totalKunjungan').textContent = dataSkill.kunjungan;
+  </script>
 </body>
 </html>
