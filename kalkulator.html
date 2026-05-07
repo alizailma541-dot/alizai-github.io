@@ -14,18 +14,44 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: 0.3s;
     }
-    .kalkulator {
+    body.dark-mode {
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);
+    }
+   .kalkulator {
       background: #2c3e50;
       padding: 25px;
       border-radius: 20px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.4);
       width: 350px;
+      transition: 0.3s;
     }
-    .judul {
-      text-align: center;
-      color: #ecf0f1;
+    body.dark-mode.kalkulator {
+      background: #1a1a1a;
+    }
+   .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 15px;
+    }
+   .judul {
+      color: #ecf0f1;
+      margin: 0;
+    }
+   .toggle-dark {
+      padding: 6px 12px;
+      background: #f1c40f;
+      color: #333;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    body.dark-mode.toggle-dark {
+      background: #3498db;
+      color: white;
     }
     #layar {
       width: 100%;
@@ -40,7 +66,10 @@
       margin-bottom: 15px;
       box-sizing: border-box;
     }
-    .tombol-grid {
+    body.dark-mode #layar {
+      background: #000;
+    }
+   .tombol-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 8px;
@@ -58,30 +87,33 @@
     button:hover {
       background: #4a6278;
     }
-    .operator {
+    body.dark-mode button {
+      background: #2c2c2c;
+    }
+   .operator {
       background: #3498db;
     }
-    .operator:hover {
+   .operator:hover {
       background: #2980b9;
     }
-    .fungsi {
+   .fungsi {
       background: #9b59b6;
       font-size: 14px;
     }
-    .fungsi:hover {
+   .fungsi:hover {
       background: #8e44ad;
     }
-    .sama-dengan {
+   .sama-dengan {
       background: #e74c3c;
       grid-column: span 2;
     }
-    .sama-dengan:hover {
+   .sama-dengan:hover {
       background: #c0392b;
     }
-    .clear {
+   .clear {
       background: #f39c12;
     }
-    .back-home {
+   .back-home {
       display: block;
       text-align: center;
       margin-top: 20px;
@@ -93,77 +125,96 @@
 </head>
 <body>
   <div class="kalkulator">
-    <h2 class="judul">🧮 Scientific Zaskya</h2>
+    <div class="header-bar">
+      <h2 class="judul">🧮 Scientific</h2>
+      <button class="toggle-dark" onclick="toggleDarkMode()">☀️ Light</button>
+    </div>
     <input type="text" id="layar" disabled>
-    
+
     <div class="tombol-grid">
       <button class="fungsi" onclick="tambahFungsi('sin(')">sin</button>
       <button class="fungsi" onclick="tambahFungsi('cos(')">cos</button>
       <button class="fungsi" onclick="tambahFungsi('tan(')">tan</button>
       <button class="clear" onclick="clearLayar()">C</button>
       <button class="operator" onclick="hapusSatu()">⌫</button>
-      
+
       <button class="fungsi" onclick="tambahFungsi('sqrt(')">√</button>
       <button class="fungsi" onclick="tambahKeLayar('**')">x^y</button>
       <button class="fungsi" onclick="tambahFungsi('log(')">log</button>
       <button class="operator" onclick="tambahKeLayar('/')">÷</button>
       <button class="operator" onclick="tambahKeLayar('*')">×</button>
-      
+
       <button onclick="tambahKeLayar('7')">7</button>
       <button onclick="tambahKeLayar('8')">8</button>
       <button onclick="tambahKeLayar('9')">9</button>
       <button class="fungsi" onclick="tambahKeLayar('(')">(</button>
       <button class="operator" onclick="tambahKeLayar('-')">-</button>
-      
+
       <button onclick="tambahKeLayar('4')">4</button>
       <button onclick="tambahKeLayar('5')">5</button>
       <button onclick="tambahKeLayar('6')">6</button>
       <button class="fungsi" onclick="tambahKeLayar(')')">)</button>
       <button class="operator" onclick="tambahKeLayar('+')">+</button>
-      
+
       <button onclick="tambahKeLayar('1')">1</button>
       <button onclick="tambahKeLayar('2')">2</button>
       <button onclick="tambahKeLayar('3')">3</button>
       <button class="fungsi" onclick="tambahKeLayar('3.14159')">π</button>
       <button onclick="tambahKeLayar('0')">0</button>
-      
+
       <button onclick="tambahKeLayar('.')">.</button>
       <button class="fungsi" onclick="tambahKeLayar('**2')">x²</button>
       <button class="sama-dengan" onclick="hitung()">=</button>
     </div>
-    
+
     <a href="index.html" class="back-home">← Balik ke Home</a>
   </div>
 
   <script>
     let layar = document.getElementById('layar');
-    
+
+    // LOAD TEMA DARI LOCALSTORAGE
+    if (localStorage.getItem('temaZaskya') === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.querySelector('.toggle-dark').textContent = '🌙 Dark';
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      let btn = document.querySelector('.toggle-dark');
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('temaZaskya', 'dark');
+        btn.textContent = '🌙 Dark';
+      } else {
+        localStorage.setItem('temaZaskya', 'light');
+        btn.textContent = '☀️ Light';
+      }
+    }
+
     function tambahKeLayar(input) {
       layar.value += input;
     }
-    
+
     function tambahFungsi(fungsi) {
       layar.value += fungsi;
     }
-    
+
     function clearLayar() {
       layar.value = '';
     }
-    
+
     function hapusSatu() {
       layar.value = layar.value.slice(0, -1);
     }
-    
+
     function hitung() {
       try {
-        // Ganti fungsi biar bisa dihitung JavaScript
         let hasil = layar.value
-          .replace(/sin/g, 'Math.sin')
-          .replace(/cos/g, 'Math.cos')
-          .replace(/tan/g, 'Math.tan')
-          .replace(/sqrt/g, 'Math.sqrt')
-          .replace(/log/g, 'Math.log10');
-        
+         .replace(/sin/g, 'Math.sin')
+         .replace(/cos/g, 'Math.cos')
+         .replace(/tan/g, 'Math.tan')
+         .replace(/sqrt/g, 'Math.sqrt')
+         .replace(/log/g, 'Math.log10');
         layar.value = eval(hasil);
       } catch {
         layar.value = 'Error 😭';
