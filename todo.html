@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List Zaskya</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #c471f5, #fa71cd);
+      font-family: Arial;
+      text-align: center;
+      color: #333;
+      padding: 20px;
+      transition: 0.3s;
+    }
+    h1 { color: white; text-shadow: 2px 2px 4px #c471f5; }
+    .kotak {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    #inputTugas {
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid #c471f5;
+      width: 60%;
+      font-size: 16px;
+    }
+    button {
+      background: #c471f5;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-left: 5px;
+      font-size: 16px;
+    }
+    button:hover { background: #a24bcf; }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+    li {
+      background: #f3e5f5;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+    }
+    .hapus {
+      background: #ff4757;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+    .hapus:hover { background: #e84118; }
+    .selesai {
+      text-decoration: line-through;
+      opacity: 0.6;
+      background: #d4edda;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 To-Do List Zaskya 📝</h1>
+  
+  <div class="kotak">
+    <h2>Tambah Tugas Baru</h2>
+    <input type="text" id="inputTugas" placeholder="Contoh: Kerjain PR MTK 😭">
+    <button onclick="tambahTugas()">Tambah</button>
+    
+    <ul id="listTugas">
+      <!-- Tugas bakal muncul disini -->
+    </ul>
+  </div>
+
+<script>
+  function tambahTugas() {
+    var input = document.getElementById("inputTugas");
+    var tugasBaru = input.value;
+    
+    if (tugasBaru == "") {
+      alert("Isi dulu tugasnya dong Zaskya 😭");
+    } else {
+      var list = document.getElementById("listTugas");
+      
+      // Bikin elemen li baru
+      var li = document.createElement("li");
+      
+      // Isi text + tombol hapus
+      li.innerHTML = tugasBaru + ' <button class="hapus" onclick="hapusTugas(this)">Hapus</button>';
+      
+      // Kalo di-klik = coret tugasnya
+      li.onclick = function() {
+        li.classList.toggle("selesai");
+      }
+      
+      // Tempel ke list
+      list.appendChild(li);
+      
+      // Kosongin input
+      input.value = "";
+    }
+  }
+  
+  function hapusTugas(tombol) {
+    var li = tombol.parentElement;
+    li.remove();
+  }
+</script>
+</body>
+</html>
