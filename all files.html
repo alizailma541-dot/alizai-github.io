@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Ulang Tahun Zaskya ke-18</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .header h1 { font-size: 28px; margin-bottom: 10px; }
+    .content { padding: 30px; }
+    .info { text-align: center; margin-bottom: 30px; }
+    .info h2 { color: #667eea; margin-bottom: 15px; }
+    .info p { margin: 8px 0; color: #555; }
+    form {
+      background: #f8f9ff;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+    }
+    form h3 { color: #667eea; margin-bottom: 20px; text-align: center; }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .ucapan-list h3 { color: #667eea; margin-bottom: 20px; text-align: center; }
+    .ucapan-item {
+      background: #fff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .ucapan-item .nama { font-weight: bold; color: #667eea; margin-bottom: 5px; }
+    .ucapan-item .pesan { color: #555; margin-bottom: 8px; }
+    .ucapan-item .waktu { font-size: 12px; color: #999; }
+    .loading { text-align: center; color: #999; padding: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎉 Zaskya's 18th Birthday 🎉</h1>
+      <p>You're Invited!</p>
+    </div>
+    
+    <div class="content">
+      <div class="info">
+        <h2>Save The Date</h2>
+        <p><strong>📅 Tanggal:</strong> Sabtu, 25 Mei 2026</p>
+        <p><br>Mohon doa nya yaa 💜</p>
+      </div>
+
+      <form id="formUcapan">
+        <h3>✨ Kirim Ucapan & Doa</h3>
+        <input type="text" id="nama" placeholder="Nama kamu..." maxlength="50" required>
+        <textarea id="pesan" rows="4" placeholder="Tulis ucapan buat Zaskya..." required></textarea>
+        <button type="submit" id="btnKirim">Kirim Ucapan</button>
+      </form>
+
+      <div class="ucapan-list">
+        <h3>💌 Ucapan dari Teman-teman</h3>
+        <div id="listUcapan" class="loading">Loading ucapan...</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    // Config Firebase kamu
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmiwBaDJmOnfp1HFxwh2-MVfynybiuqe8",
+      authDomain: "ultah-zaskya-18.firebaseapp.com",
+      projectId: "ultah-zaskya-18",
+      storageBucket: "ultah-zaskya-18.firebasestorage.app",
+      messagingSenderId: "419647007001",
+      appId: "1:419647007001:web:c66829d9c629e20f85fd88"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('formUcapan');
+    const namaInput = document.getElementById('nama');
+    const pesanInput = document.getElementById('pesan');
+    const btnKirim = document.getElementById('btnKirim');
+    const listUcapan = document.getElementById('listUcapan');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btnKirim.disabled = true;
+      btnKirim.textContent = 'Mengirim...';
+
+      try {
+        await addDoc(collection(db, 'ucapan'), {
+          nama: namaInput.value,
+          pesan: pesanInput.value,
+          waktu: serverTimestamp()
+        });
+        form.reset();
+        alert('Makasih ucapannya! 💜');
+      } catch (error) {
+        alert('Gagal kirim: ' + error.message);
+      }
+
+      btnKirim.disabled = false;
+      btnKirim.textContent = 'Kirim Ucapan';
+    });
+
+    const q = query(collection(db, 'ucapan'), orderBy('waktu', 'desc'));
+    onSnapshot(q, (snapshot) => {
+      if (snapshot.empty) {
+        listUcapan.innerHTML = '<p class="loading">Belum ada ucapan. Jadi yang pertama yuk!</p>';
+        return;
+      }
+      listUcapan.innerHTML = '';
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const waktu = data.waktu ? data.waktu.toDate().toLocaleString('id-ID') : 'Baru saja';
+        listUcapan.innerHTML += `
+          <div class="ucapan-item">
+            <div class="nama">${data.nama}</div>
+            <div class="pesan">${data.pesan}</div>
+            <div class="waktu">${waktu}</div>
+          </div>
+        `;
+      });
+    });
+  </script>
+</body>
+</html>
